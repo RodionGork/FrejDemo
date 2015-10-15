@@ -1,6 +1,6 @@
 package com.company;
 
-//import net.java.frej.Regex;
+import net.java.frej.Regex;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,18 +14,27 @@ import java.io.IOException;
  */
 @Controller
 public class MainController {
+
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    protected String gotoIndex() throws Exception {
+        return "index.html";
+    }
+
     @RequestMapping(value = "/process", method = RequestMethod.POST)
-    public ModelAndView doProcess(@RequestParam(value = "pattern") String txtRegex, @RequestParam(value = "input") String txtInput, @RequestParam(value = "button") String buttonType) {
-        ModelAndView result = new ModelAndView("test");
+    public ModelAndView doProcess(@RequestParam("pattern") String txtRegex,
+                                  @RequestParam("input") String txtInput,
+                                  @RequestParam("button") String button) {
+        ModelAndView result = new ModelAndView("index.jsp");
         boolean b = false;
-        /*try {
+        try {
             if (null == txtRegex || null == txtInput)
                 throw new IOException();
             Regex r = new Regex(txtRegex);
 
-            if (buttonType.equals("Exact"))
+            if (button.equals("Exact"))
                 b = r.match(txtInput);
-            else if (buttonType.equals("Start"))
+            else if (button.equals("Start"))
                 b = r.matchFromStart(txtInput);
             else
                 b = r.presentInSequence(txtInput) >= 0;
@@ -35,7 +44,7 @@ public class MainController {
                 result.addObject("result", "//Not matched!");
         } catch (Exception ex) {
             result.addObject("result", "//Exception!");
-        }*/
+        }
         result.addObject("successful", b);
         return result;
     }
