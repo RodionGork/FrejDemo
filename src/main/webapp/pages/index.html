@@ -87,26 +87,40 @@
 
         <div class="col-md-6">
             <div class="form-group">
-                <form id="mainform" name="mainform" method="post" action="/process">
-                    <label for="pattern">Patternnnnnnnnnnnnnnnnnn:</label>
-                    <textarea class="form-control" rows="5" id="pattern" name="pattern"></textarea>
+                    <label for="pattern">Pattern:</label>
+                    <textarea class="form-control" rows="5" id="pattern" name="pattern">{(^Start,Run)~A, (?Demo)|, Applet~B}|Test_$B_is_$A-ing</textarea>
                     <label for="input">Input:</label>
-                    <textarea class="form-control" rows="5" id="input" name="input"></textarea>
-                    <button type="submit" name="button" id="exactButton" onclick="proceed(this.id);">Exact</button>
+                    <textarea class="form-control" rows="5" id="input" name="input">ran appelt</textarea>
+                    <button name="button" id="exactButton" onclick="proceed(this.id);">Exact</button>
                     <button type="submit" name="button" id="startButton" onclick="proceed(this.id);">Start</button>
                     <button type="submit" name="button" id="demoButton" onclick="proceed(this.id);">Demo</button>
-                </form>
             </div>
             <script>
                 function proceed(buttonId) {
-                    var pattern = document.getElementById('pattern').value;
-                    var input = document.getElementById('input').value;
-                    var params = 'pattern='+pattern+'&input='+input+'&button='+buttonId.toString();
+                    var myJson={txtRegex:{},txtInput:{},buttonId:{}, txtResult:{}};
+					myJson.txtRegex = document.getElementById('pattern').value;
+					myJson.txtInput = document.getElementById('input').value;
+                    myJson.txtResult = "";
+                    myJson.buttonId = buttonId;
+					
+					var parameters = JSON.stringify(myJson);
+                    
                     var xmlhttp = new XMLHttpRequest();
                     var url = "/process";
                     xmlhttp.open("POST", url, true);
-                    xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                    xmlhttp.send(params);
+
+                    xmlhttp.onreadystatechange = function() {
+                        if (xmlhttp.readyState == 4) {
+                            if(xmlhttp.status == 200) {
+                                var result = JSON.parse(xmlhttp.responseText);
+                                document.getElementById("answer").value = result.txtResult;
+                            }
+                        }
+                    };
+
+
+                    xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                    xmlhttp.send(parameters);
                 }
             </script>
 
