@@ -87,9 +87,9 @@
 
         <div class="col-md-6">
             <div class="form-group">
-                    <label for="pattern">Pattern:</label>
+                    <h2><label for="pattern">Pattern:</label></h2>
                     <textarea class="form-control" rows="5" id="pattern" name="pattern">{(^Start,Run)~A, (?Demo)|, Applet~B}|Test_$B_is_$A-ing</textarea>
-                    <label for="input">Input:</label>
+                    <h2><label for="input">Input:</label></h2>
                     <textarea class="form-control" rows="5" id="input" name="input">ran appelt</textarea>
                     <button name="button" id="exactButton" onclick="proceed(this.id);">Exact</button>
                     <button type="submit" name="button" id="startButton" onclick="proceed(this.id);">Start</button>
@@ -117,8 +117,6 @@
                             }
                         }
                     };
-
-
                     xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
                     xmlhttp.send(parameters);
                 }
@@ -127,11 +125,17 @@
 
             <h2>
                 <label for="answer">Answer:</label>
-                <textarea class="form-control" rows="5" id="answer" name="answer"><c:out value="${result}"/></textarea>
+                <textarea class="form-control" rows="5" id="answer" name="answer"></textarea>
             </h2>
         </div>
     </div>
 </div>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">Redesigned for JavaEE/Spring MVC by <a href="https://www.linkedin.com/profile/view?id=AAMAAABUdNMBu3nOOQHFz1f3-pv_qto3WgZP-Hs&trk=hp-identity-name">Sergey Tolokunsky</a></p>
+    </div>
+</footer>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
