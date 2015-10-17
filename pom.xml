@@ -11,6 +11,8 @@
     <url>http://maven.apache.org</url>
 
     <properties>
+        <appengine.app.version>1</appengine.app.version>
+        <appengine.target.version>1.9.0</appengine.target.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
@@ -39,33 +41,24 @@
         </dependency>
 
         <dependency>
-            <groupId>jstl</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
         </dependency>
+        
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.4</version>
         </dependency>
-
-        <dependency>
-            <!-- I hope we can deploy this to maven repo one day -->
-            <groupId>frej</groupId>
-            <artifactId>frej</artifactId>
-            <version>1.3</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/frej.jar</systemPath>
-        </dependency>
+        
+        <!-- frej sources are just included in src -->
     </dependencies>
 
     <build>
         <finalName>frejdemo</finalName>
+        <outputDirectory>target/${project.artifactId}/WEB-INF/classes</outputDirectory> 
+        
         <plugins>
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>

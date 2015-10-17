@@ -9,3 +9,4 @@ matching and replaces.
 
 Run this locally with `mvn jetty:run`.
 
+Deploy with `appcfg.sh -A project-id update target/frejdemo`.
