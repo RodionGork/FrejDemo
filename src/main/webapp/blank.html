@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <style>
+        html, body {height: 100%}
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                    <h2><label for="pattern">Pattern:</label></h2>
+                    <textarea class="form-control" rows="5" id="pattern" name="pattern">{(^Start,Run)~A, (?Demo)|, Applet~B}|Test_$B_is_$A-ing</textarea>
+                    <h2><label for="input">Input:</label></h2>
+                    <textarea class="form-control" rows="5" id="input" name="input">ran appelt</textarea>
+                    <button name="button" id="exactButton" onclick="proceed(this.id);">Exact</button>
+                    <button type="submit" name="button" id="startButton" onclick="proceed(this.id);">Start</button>
+                    <button type="submit" name="button" id="demoButton" onclick="proceed(this.id);">Demo</button>
+            </div>
+            <script>
+                function proceed(buttonId) {
+                    var myJson={txtRegex:{},txtInput:{},buttonId:{}, txtResult:{}};
+					myJson.txtRegex = document.getElementById('pattern').value;
+					myJson.txtInput = document.getElementById('input').value;
+                    myJson.txtResult = "";
+                    myJson.buttonId = buttonId;
+					
+					var parameters = JSON.stringify(myJson);
+                    
+                    var xmlhttp = new XMLHttpRequest();
+                    var url = "/api/process";
+                    xmlhttp.open("POST", url, true);
+
+                    xmlhttp.onreadystatechange = function() {
+                        if (xmlhttp.readyState == 4) {
+                            if(xmlhttp.status == 200) {
+                                var result = JSON.parse(xmlhttp.responseText);
+                                document.getElementById("answer").value = result.txtResult;
+                            }
+                        }
+                    };
+                    xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                    xmlhttp.send(parameters);
+                }
+            </script>
+
+
+            <h2>
+                <label for="answer">Answer:</label>
+                <textarea class="form-control" rows="5" id="answer" name="answer"></textarea>
+            </h2>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
