@@ -12,6 +12,12 @@ import java.io.IOException;
  */
 @RestController
 public class MainRestController {
+
+    @RequestMapping(value = "/process", method = RequestMethod.GET)
+    public @ResponseBody String showInfo() {
+        return "FrejDemo REST API";
+    }
+    
     @RequestMapping(value = "/process", method = RequestMethod.POST)
     public @ResponseBody String doProcess(@RequestBody String jsonString) {
 
